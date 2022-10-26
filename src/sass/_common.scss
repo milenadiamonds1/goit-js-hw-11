@@ -1,1 +1,33 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
+
+.section__div{
+    display: flex;
+    background-color: rgb(113, 152, 236);
+    height: 65px;
+    justify-content: space-around;
+    align-items: center;
+}
+.form__input{
+    display: block;
+    height: 40px;
+    width: 400px;
+    border-radius: 6px;
+    border:none;
+}
+.section__input{
+    position: relative;
+}
+.form__icon{
+   &:hover{
+       color: blue;
+   }
+}
+.search__button{
+    position: absolute;
+top: 0px;
+    right: 0px;
+    height: 40px;
+    border:none;
+    width: 30px;
+    border-radius: 0px 6px 6px 0px;
+}
