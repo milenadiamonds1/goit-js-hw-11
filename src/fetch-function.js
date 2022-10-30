@@ -7,7 +7,7 @@ export default async function fetchImages(searchVal, pagNum) {
   return await axios
     .get(url, {
       params: {
-        key: '30165080-69dc7af91b4e9c1a4c0e45d49',
+        key: '30911598-44913a86afc6093c596bda643',
         q: `${searchVal}`,
         image_type: 'photo',
         orientation: 'horizontal',
