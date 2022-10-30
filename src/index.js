@@ -1,7 +1,6 @@
  import imagesTpl from './templates/images.hbs';
 
 import axios from "axios";
-import { func } from "joi";
 import Notiflix from 'notiflix';
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
