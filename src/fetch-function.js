@@ -1,51 +1,40 @@
 import axios from "axios";
+import Notiflix from "notiflix";
 
-export default class ApiService{
-    constructor() {
-        this.searchQuery = '';
-        this.page = 1;
-        this.per_page = 40;
-    }
+export default async function fetchImages(searchVal, pagNum) {
+    const url = `https://pixabay.com/api/`;
 
-async fetchImages(){
-    const apiData = axios.create({
-        baseURL: 'https://pixabay.com/api/',
-        params: {
-            key: '30037400-a9b9f26d9bfcaaa08a678cbf5',
-            q: `${this.searchQuery}`,
-            image_type: 'photo',
-            orientation: 'horizontal',
-            safesearch: 'true',
-            page: `${this.page}`,
-            per_page: `${this.per_page}`,
-        },
+  return await axios
+    .get(url, {
+      params: {
+        key: '30165080-69dc7af91b4e9c1a4c0e45d49',
+        q: `${searchVal}`,
+        image_type: 'photo',
+        orientation: 'horizontal',
+        safesearch: 'true',
+        per_page: 40,
+        page: `${pagNum}`,
+      },
+    })
+
+    .then(res => {
+      if (res.data.totalHits < 40) {
+        loadMoreBtn.hidden = true;
+      }
+
+      if (!res.data.totalHits) {
+        loadMoreBtn.hidden = true;
+        Notiflix.Notify.warning(
+          'Sorry, there are no images matching your search query. Please try again.'
+        );
+      }
+
+      if (pagNum === 1 && res.data.totalHits > 0) {
+        Notiflix.Notify.success(
+          `Hooray! We found ${res.data.totalHits} images.`
+        );
+      }
+
+      return res.data;
     });
-    const { data } = await apiData.get();
-        
-        const images = data.hits;
-        const totalHits = data.totalHits;
-        const totalPages = totalHits / this.per_page;
-
-        if (!images.length) {
-            throw new Error(`Images not found...`)
-}
-
-return { images, totalHits, totalPages };
-    } 
-
-    incrementPage() {
-        this.page += 1;
-    }
-
-    resetPage(){
-        this.page = 1;
-    }
-
-    get guery() {
-        return this.searchQuery;
-    }
-
-    set guery(newQuery) {
-        this.searchQuery = newQuery;
-    }  
 }
